@@ -1,0 +1,29 @@
+.title {
+  background-color: #e9cc97;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 5px 10px;
+  margin-bottom: 2rem;
+}
+
+.listItems {
+  & > * {
+    margin-bottom: 2rem;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.loading {
+  margin: 40vh auto;
+}
+
+.error {
+  //   display: block;
+  //   margin: 40vh auto;
+  //   text-align: center;
+  //   font-size: 1.2rem;
+}

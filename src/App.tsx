@@ -1,24 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route, Redirect } from 'react-router-dom';
+
+import MarketList from 'components/MarketList';
+import CoinDetails from 'components/CoinDetails';
+import * as RoutePaths from 'constants/RoutePaths';
+
+import classes from './App.module.scss';
+import { useScrollToTop } from 'hooks/useScrollToTop';
 
 function App() {
+  useScrollToTop();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className={classes.component}>
+      <header>
+        <h1 className={classes.title}>Coins</h1>
       </header>
+
+      <main>
+        <Switch>
+          <Route path={RoutePaths.MARKETS}>
+            <MarketList />
+          </Route>
+          <Route path={RoutePaths.COIN}>
+            <CoinDetails />
+          </Route>
+          <Redirect from={RoutePaths.ALL} to={RoutePaths.MARKETS} />
+        </Switch>
+      </main>
     </div>
   );
 }

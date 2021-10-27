@@ -1,0 +1,14 @@
+.component {
+  margin-inline: clamp(50px, 20%, 1000px);
+  margin-block: 2rem;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 900;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  text-decoration-color: #e9cc97;
+  text-decoration-thickness: 15px;
+  text-underline-offset: -25%;
+}
