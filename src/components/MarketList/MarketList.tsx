@@ -10,7 +10,7 @@ import classes from './MarketList.module.scss';
 
 const MarketList = () => {
   const [page, setPage] = useState(1);
-  const { data, isLoading, isError, error } = useMarkets(page);
+  const { data, isLoading, isError, error, isFetching } = useMarkets(page);
   const isFirstPage = page === 1;
   const markets = data ?? [];
 
@@ -33,11 +33,17 @@ const MarketList = () => {
         ))}
       </section>
       <div className={classes.buttonContainer}>
-        <Button onClick={() => setPage((prevPage) => prevPage + 1)}>
+        <Button
+          onClick={() => setPage((prevPage) => prevPage + 1)}
+          disabled={isFetching}
+        >
           Next
         </Button>
         {!isFirstPage && (
-          <Button onClick={() => setPage((prevPage) => prevPage - 1)}>
+          <Button
+            onClick={() => setPage((prevPage) => prevPage - 1)}
+            disabled={isFetching}
+          >
             Previous
           </Button>
         )}

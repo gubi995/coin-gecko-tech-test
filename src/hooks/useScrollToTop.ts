@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export const useScrollToTop = () => {
-  const { location } = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
-    window.document.body.scrollTo({ top: 0 });
+    window.scrollTo(0, 0);
   }, [location]);
 };

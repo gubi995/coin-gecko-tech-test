@@ -1,6 +1,10 @@
 .component {
-  margin-inline: clamp(50px, 20%, 1000px);
-  margin-block: 2rem;
+  padding-block: 2rem;
+  margin-inline: 20px;
+
+  @media (min-width: 768px) {
+    margin-inline: 20vw;
+  }
 }
 
 .title {
@@ -8,7 +12,8 @@
   font-weight: 900;
   text-decoration: underline;
   text-decoration-skip-ink: none;
-  text-decoration-color: #e9cc97;
+  text-decoration-color: var(--putty);
   text-decoration-thickness: 15px;
   text-underline-offset: -25%;
+  margin-top: 0;
 }

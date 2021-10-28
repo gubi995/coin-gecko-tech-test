@@ -2,8 +2,9 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import sanitizeHtml from 'sanitize-html';
 
+import Skeleton from 'components/Skeleton';
+import ErrorCard from 'components/ErrorCard';
 import { useCoin } from 'hooks/useCoin';
-import { Coin } from 'types/Coin';
 import * as RoutePaths from 'constants/RoutePaths';
 
 import classes from './CoinDetails.module.scss';
@@ -13,58 +14,76 @@ type UrlParams = { id: string };
 const CoinDetails = () => {
   const { id } = useParams<UrlParams>();
   const { data, isLoading, isError, error } = useCoin(id);
-  const {
-    id: name,
-    hashing_algorithm,
-    market_data,
-    symbol,
-    links,
-    description,
-  } = data ?? ({} as Coin);
 
-  if (isLoading) return <span>Loading...</span>;
-
-  if (isError) return <span>{error?.message ?? 'Unknown error'}</span>;
-
-  const [homepage] = links.homepage;
+  if (isError)
+    return (
+      <ErrorCard
+        title="Sorry! We ran into a problem during data fetching 😥"
+        description={`Details: ${error?.message ?? 'Unknown error'}`}
+      />
+    );
 
   return (
     <div className={classes.component}>
       <Link className={classes.back} to={RoutePaths.MARKETS}>
         Back
       </Link>
-      <div className={classes.card}>
-        <span className={`${classes.name} ${classes.fontMedium}`}>{name}</span>
-        <span>
-          Hashing algorithm:{' '}
-          <span className={classes.fontMedium}>{hashing_algorithm}</span>
+      <Skeleton height="2rem" isLoading={isLoading}>
+        <span className={`${classes.name} ${classes.fontMedium}`}>
+          {data?.id}
         </span>
-        <span>
-          Current price (EUR):{' '}
+      </Skeleton>
+      <div className={classes.infoRow}>
+        <span>Hashing algorithm:</span>
+        <Skeleton isLoading={isLoading}>
+          <span className={classes.fontMedium}>{data?.hashing_algorithm}</span>
+        </Skeleton>
+      </div>
+      <div className={classes.infoRow}>
+        <span>Current price (EUR):</span>
+        <Skeleton isLoading={isLoading}>
           <span className={classes.fontMedium}>
-            {market_data.current_price.eur}
+            {data?.market_data.current_price.eur}
           </span>
-        </span>
-        <span>
-          Symbol: <span className={classes.fontMedium}>{symbol}</span>
-        </span>
-        <span>
-          Home page links:{' '}
-          <Link key={homepage} to={homepage} target="_blank">
-            <span className={classes.fontMedium}>{homepage}</span>
+        </Skeleton>
+      </div>
+      <div className={classes.infoRow}>
+        <span>Symbol:</span>
+        <Skeleton isLoading={isLoading}>
+          <span className={classes.fontMedium}>{data?.symbol}</span>
+        </Skeleton>
+      </div>
+      <div className={classes.infoRow}>
+        <span>Home page links:</span>
+        <Skeleton isLoading={isLoading}>
+          <Link
+            key={data?.links.homepage[0]}
+            to={data?.links.homepage[0] ?? '#'}
+            target="_blank"
+          >
+            <span className={classes.fontMedium}>
+              {data?.links.homepage[0]}
+            </span>
           </Link>
-        </span>
-        {description.en && (
-          <>
-            <span>Description:</span>
-            <span
-              className={classes.fontMedium}
-              dangerouslySetInnerHTML={{
-                __html: sanitizeHtml(description.en, { allowedTags: ['a'] }),
-              }}
-            />
-          </>
-        )}
+        </Skeleton>
+      </div>
+      <div className={classes.descriptionContainer}>
+        <span>Description:</span>
+        <Skeleton isLoading={isLoading} height="30vh" width="100%">
+          <span
+            className={classes.fontMedium}
+            dangerouslySetInnerHTML={{
+              __html: sanitizeHtml(
+                data && data.description.en
+                  ? data?.description.en
+                  : 'Description not available',
+                {
+                  allowedTags: ['a'],
+                }
+              ),
+            }}
+          />
+        </Skeleton>
       </div>
     </div>
   );

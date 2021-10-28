@@ -1,9 +1,9 @@
 .component {
-  background: #e9cc97;
+  background-color: var(--putty);
   animation: load 1s infinite ease-in-out;
   width: 1em;
   height: 4em;
-  color: #e9cc97;
+  color: var(--putty);
   text-indent: -9999em;
   position: relative;
   font-size: 10px;
@@ -12,7 +12,7 @@
 
   &::after,
   &::before {
-    background: #e9cc97;
+    background-color: var(--putty);
     animation: load 1s infinite ease-in-out;
     width: 1em;
     height: 4em;

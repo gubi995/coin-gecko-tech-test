@@ -2,10 +2,10 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import MarketList from 'components/MarketList';
 import CoinDetails from 'components/CoinDetails';
+import { useScrollToTop } from 'hooks/useScrollToTop';
 import * as RoutePaths from 'constants/RoutePaths';
 
 import classes from './App.module.scss';
-import { useScrollToTop } from 'hooks/useScrollToTop';
 
 function App() {
   useScrollToTop();
