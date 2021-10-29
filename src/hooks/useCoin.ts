@@ -9,8 +9,6 @@ const fetchCoin = async (id: string) => {
 
     return coin;
   } catch (error) {
-    console.error({ error });
-
     throw error;
   }
 };

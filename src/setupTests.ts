@@ -3,3 +3,11 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
+import { setLogger } from 'react-query';
+
+setLogger({
+  log: console.log,
+  warn: console.warn,
+  // ✅ no more RQ errors on the console during test
+  error: () => {},
+});

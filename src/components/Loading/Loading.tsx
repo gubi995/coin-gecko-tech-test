@@ -6,7 +6,10 @@ interface LoadingProps {
 
 const Loading = ({ className }: LoadingProps) => {
   return (
-    <div className={`${classes.component} ${className}`} role="progressbar" />
+    <div
+      className={`${classes.component} ${className ?? ''}`}
+      role="progressbar"
+    />
   );
 };
 

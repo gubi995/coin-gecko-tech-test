@@ -17,8 +17,6 @@ const fetchMarkets = async (page: number) => {
 
     return markets;
   } catch (error) {
-    console.error({ error });
-
     throw error;
   }
 };
