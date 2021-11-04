@@ -1,5 +1,6 @@
 import { useQuery } from 'react-query';
 
+import { API_URL } from 'constants/API';
 import { Market } from 'types/Market';
 
 const fetchMarkets = async (page: number) => {
@@ -10,9 +11,7 @@ const fetchMarkets = async (page: number) => {
     params.set('per_page', '10');
     params.set('page', `${page}`);
 
-    const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/markets?${params.toString()}`
-    );
+    const response = await fetch(`${API_URL}/markets?${params.toString()}`);
     const markets: Array<Market> = await response.json();
 
     return markets;
